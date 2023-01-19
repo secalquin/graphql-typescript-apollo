@@ -1,0 +1,24 @@
+{
+  "name": "graphql-typescript-apollo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/secalquin/graphql-typescript-apollo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/secalquin/graphql-typescript-apollo/issues"
+  },
+  "homepage": "https://github.com/secalquin/graphql-typescript-apollo#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "typescript": "^4.9.4"
+  }
+}
