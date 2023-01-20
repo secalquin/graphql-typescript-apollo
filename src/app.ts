@@ -1,11 +1,10 @@
-import { ApolloServer } from "apollo-server";
-import { typeDefs, resolvers } from "./schema";
+import server from "./config/server";
+import { environments } from "./config/environments";
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+const { port } = environments;
+
+server.listen(port, () => {
+  console.log(`Server at http://localhost:${port}/api`);
 });
 
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
-});
+export default server;
