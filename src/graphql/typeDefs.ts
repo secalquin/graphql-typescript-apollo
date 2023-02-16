@@ -1,7 +1,6 @@
-import { gql } from "apollo-server-express";
 import { Product } from "./Product";
 
-const typeDefs = gql`
+const typeDefs = `#graphql
   ${Product.types}
   
   type Query {

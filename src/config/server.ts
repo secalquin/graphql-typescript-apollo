@@ -1,5 +1,8 @@
+import { ApolloServer } from "@apollo/server";
+import { expressMiddleware } from "@apollo/server/express4";
 import express, { Application } from "express";
-import { ApolloServer } from "apollo-server-express";
+import http from "http";
+import cors from "cors";
 import { typeDefs, resolvers } from "../graphql";
 
 interface IServerConfig {
@@ -22,7 +25,6 @@ class Server implements IServer {
     this.graphqlPath = graphqlPath;
 
     this.middlewares();
-    this.initApolloServer();
   }
 
   private middlewares() {
@@ -30,18 +32,23 @@ class Server implements IServer {
     this.app.use(express.urlencoded({ extended: false }));
   }
 
-  private async initApolloServer() {
-    const apolloServer = new ApolloServer({
+  async start(callback: () => void) {
+    const httpServer = http.createServer(this.app);
+    const server = new ApolloServer({
       typeDefs,
       resolvers,
     });
 
-    await apolloServer.start();
-    apolloServer.applyMiddleware({ app: this.app, path: this.graphqlPath });
-  }
+    await server.start();
 
-  start(callback: () => void) {
-    this.app.listen(this.port, callback);
+    this.app.use(
+      this.graphqlPath,
+      cors(),
+      express.json(),
+      expressMiddleware(server)
+    );
+
+    httpServer.listen(this.port, callback);
   }
 }
 
